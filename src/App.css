@@ -15,3 +15,17 @@
   unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF,
     U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
+
+@layer utilities {
+  .text-dynamic-h1 {
+    font-size: calc(2rem + 2vw);
+    letter-spacing: 2px;
+  }
+  .text-dynamic-h2 {
+    font-size: calc(1rem + 1vw);
+    letter-spacing: 2px;
+  }
+  .text-dynamic-label {
+    font-size: calc(1rem + 0.5vw);
+  }
+}

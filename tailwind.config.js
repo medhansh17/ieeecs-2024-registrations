@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         "light-main": "#F2EFE0",
+        custombg: "#F2EFE0",
         "sub-text": "#837D7D",
       },
       fontFamily: {

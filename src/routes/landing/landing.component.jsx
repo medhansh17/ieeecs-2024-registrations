@@ -1,6 +1,13 @@
-import { React, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Heading from "../../components/heading.component";
 import WelcomeBox from "../../components/welcome.component";
+
+/* eslint-disable no-unused-vars */
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import firebaseConfig from "../../../firebase.config";
+
+import validateEmail from "./validatemail";
 
 function Landing() {
   const [theme, setTheme] = useState("light");
@@ -28,6 +35,36 @@ function Landing() {
     };
   }, []);
 
+  function Gauth() {
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({
+      prompt: "select_account",
+    });
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+        return error;
+      });
+  }
+
   return (
     <>
       <main className="min-h-screen h-full min-w-full bg-light-main pt-10 flex flex-col items-center dark:bg-black">
@@ -54,6 +91,7 @@ function Landing() {
             }
             alt="description"
             className="mx-6 w-72 h-auto"
+            onClick={Gauth}
           />
           <hr className="hidden md:block flex-grow border-2 border-black  dark:border-light-main h-px" />
         </section>

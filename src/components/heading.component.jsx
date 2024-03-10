@@ -8,6 +8,7 @@ function Heading(props) {
     text-center
     text-5xl
     md:text-6xl
+    selection:dark:bg-light-main selection:dark:text-black selection:bg-black selection:text-light-main
    "
     >
       {props.text}

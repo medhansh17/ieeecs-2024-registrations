@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 function Heading(props) {
   // eslint-disable-next-line react/prop-types
   return (
@@ -7,6 +8,7 @@ function Heading(props) {
    dark:text-light-main
     text-center
     text-5xl
+leading-snug
     md:text-6xl
     selection:dark:bg-light-main selection:dark:text-black selection:bg-black selection:text-light-main
    "

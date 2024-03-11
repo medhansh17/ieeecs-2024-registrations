@@ -1,11 +1,15 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import ButtonArea from "../../components/buttonarea.component";
-
-const techDomains = ["App Dev", "Web Dev", "DevOps", "Ai/Ml", "RnD"];
-const managementDomains = ["Events", "Documentation", "Pnm and Outreach"];
-const designDomains = ["Design", "Video Editing"];
+import Userinfo from "../../components/userinfo.component";
+import { getDomains } from "../../api";
+import Heading from "../../components/heading.component";
+import DomainButton from "../../components/domainbutton.component";
 
 const Domains = () => {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [domains, setDomains] = useState([]);
+
   //function to get current theme, dark or light
   const [theme, setTheme] = useState("light");
   useEffect(() => {
@@ -32,160 +36,57 @@ const Domains = () => {
     };
   }, []);
 
-  const [selectedTech, setSelectedTech] = useState([]);
-  const [selectedManagement, setSelectedManagement] = useState([]);
-  const [selectedDesign, setSelectedDesign] = useState([]);
-
-  const handleOnClickTech = (name) => {
-    setSelectedTech((prevSelected) => {
-      if (prevSelected.includes(name)) {
-        const element = document.getElementById(name);
-        element.classList.remove(
-          "dark:bg-light-main",
-          "dark:text-black",
-          "bg-black",
-          "text-light-main"
-        );
-        return prevSelected.filter((item) => item !== name);
-      }
-      if (prevSelected.length === 2) {
-        return prevSelected;
-      } else {
-        const element = document.getElementById(name);
-        element.classList.add(
-          "dark:bg-light-main",
-          "dark:text-black",
-          "bg-black",
-          "text-light-main"
-        );
-        return [...prevSelected, name];
-      }
-    });
-  };
+  //clear localstorage
   useEffect(() => {
-    console.log(selectedTech);
-  }, [selectedTech]);
-  const handleOnClickManagement = (name) => {
-    setSelectedManagement((prevSelected) => {
-      if (prevSelected.includes(name)) {
-        const element = document.getElementById(name);
-        element.classList.remove(
-          "dark:bg-light-main",
-          "dark:text-black",
-          "bg-black",
-          "text-light-main"
-        );
-        return prevSelected.filter((item) => item !== name);
-      }
-      if (prevSelected.length === 2) {
-        return prevSelected;
-      } else {
-        const element = document.getElementById(name);
-        element.classList.add(
-          "dark:bg-light-main",
-          "dark:text-black",
-          "bg-black",
-          "text-light-main"
-        );
-        return [...prevSelected, name];
-      }
-    });
-  };
+    localStorage.removeItem("user");
+  }, []);
 
-  useEffect(() => {
-    console.log(selectedManagement);
-  }, [selectedManagement]);
+  // useEffect(() => {
+  // if (user) {
+  //   getDomains(user["email"], () => {});
+  // }
+  //});
 
-  const handleOnClickDesign = (name) => {
-    setSelectedDesign((prevSelected) => {
-      if (prevSelected.includes(name)) {
-        const element = document.getElementById(name);
-        element.classList.remove(
-          "dark:bg-light-main",
-          "dark:text-black",
-          "bg-black",
-          "text-light-main"
-        );
-        return prevSelected.filter((item) => item !== name);
-      } else {
-        const element = document.getElementById(name);
-        element.classList.add(
-          "dark:bg-light-main",
-          "dark:text-black",
-          "bg-black",
-          "text-light-main"
-        );
-        return [...prevSelected, name];
-      }
-    });
-  };
-  useEffect(() => {
-    console.log(selectedDesign);
-  }, [selectedDesign]);
   return (
-    <div className="w-[100vw] h-[100vh] flex justify-center items-center">
-      <div className="md:w-[90%] w-full h-[95%] flex flex-col items-center xl:gap-2 gap-4">
-        <h1 className="font-elephant w-max md:p-3 heading md:text-dynamic-h1 text-4xl p-3">
-          Domain Selection
-        </h1>
-        <div className="w-full h-fit border-t-2 dark:border-t-light-main border-t-black mt-[3%] flex flex-col items-center overflow-visible ">
-          <h2 className="w-fit font-elephant relative top-0 translate-y-[-55%] dark:bg-black bg-light-main text-dynamic-h2 px-4 transform scale-x-1/2">
-            Technical Domains
-          </h2>
-          <form className="w-full h-fit flex flex-row md:justify-evenly justify-around xl:mt-[-1%]  md:flex-nowrap flex-wrap mb:gap-0 gap-4">
-            {techDomains.map((domain) => (
-              <label
-                key={domain}
-                className="inline-flex items-center w-fit justify-center h-[60px] rounded-2xl lg:dark:hover:bg-light-main lg:dark:hover:text-black text-dynamic-label font-outfit p-4 lg:hover:bg-black lg:hover:text-light-main border-dashed dark:border-light-main border-black border-2 "
-                id={domain}
-                onClick={() => handleOnClickTech(domain)}
-              >
-                {domain}
-              </label>
-            ))}
-          </form>
-        </div>
-        <div className="w-full h-fit border-t-2 dark:border-t-light-main border-t-black mt-[40px] flex flex-col items-center overflow-visible">
-          <h2 className="w-fit font-elephant relative top-0 translate-y-[-55%] dark:bg-black bg-light-main text-dynamic-h2 px-4">
-            Management Domains
-          </h2>
-          <form className="w-full h-fit flex flex-row items-center md:justify-evenly justify-around xl:mt-[-1%] md:flex-nowrap flex-wrap mb:gap-0 gap-4">
-            {managementDomains.map((domain) => (
-              <label
-                key={domain}
-                className="inline-flex w-fit items-center justify-around h-[60px] rounded-2xl lg:dark:hover:bg-light-main lg:dark:hover:text-black text-dynamic-label font-outfit p-4 md:p-8 lg:hover:bg-black lg:hover:text-light-main  border-dashed dark:border-light-main border-black border-2 "
-                id={domain}
-                onClick={() => handleOnClickManagement(domain)}
-              >
-                {domain}
-              </label>
-            ))}
-          </form>
-        </div>
-        <div className="w-full h-fit border-t-2 dark:border-t-light-main border-t-black mt-[40px] flex flex-col items-center overflow-visible">
-          <h2 className="w-fit font-elephant relative top-0 translate-y-[-55%] dark:bg-black bg-light-main text-dynamic-h2 px-4">
-            Design Domains
-          </h2>
-          <form className="w-full h-fit flex flex-row items-center md:justify-evenly justify-around xl:mt-[-1%] md:flex-nowrap flex-wrap ">
-            {designDomains.map((domain) => (
-              <label
-                key={domain}
-                className="inline-flex w-fit items-center justify-center h-[60px] rounded-2xl lg:dark:hover:bg-light-main lg:dark:hover:text-black text-dynamic-label font-outfit p-4 md:p-8 lg:hover:bg-black lg:hover:text-light-main  border-dashed dark:border-light-main border-black border-2"
-                id={domain}
-                onClick={() => handleOnClickDesign(domain)}
-              >
-                {domain}
-              </label>
-            ))}
-          </form>
-        </div>
+    <>
+      <main className="min-h-screen h-full min-w-full  bg-light-main pt-10 flex flex-col items-center dark:bg-black mt-12 md:mt-0">
+        <Userinfo
+          email={user["email"]}
+          name={user["displayName"]}
+          photoURL={user["photoURL"]}
+          theme={theme}
+        />
+        <Heading text="Domain Selection" />
+
+        <section className="md:w-11/12 md:h-full flex-grow mb-36 md:mb-20 flex flex-col md:flex-row items-center justify-evenly">
+          <div className="flex-shrink-0">
+            <DomainButton
+              domainName="Technical"
+              imgURL="../src/images/techdomain.jpg"
+            />
+          </div>
+          <div className="hidden  md:block flex-grow h-full w-1 md:w-full md:h-1 border-4 border-dashed border-black dark:border-light-main"></div>
+          <div className="flex-shrink-0">
+            <DomainButton
+              domainName="Management"
+              imgURL="../src/images/managementdomain.png"
+            />
+          </div>
+          <div className=" hidden md:block flex-grow h-full w-1 md:w-full md:h-1 border-4 border-dashed border-black dark:border-light-main"></div>
+          <div className="flex-shrink-0">
+            <DomainButton
+              domainName="Design"
+              imgURL="../src/images/designdomain.svg"
+            />
+          </div>
+        </section>
         <ButtonArea
           theme={theme}
           lightimage="../src/images/proceedlight.svg"
           darkimage="../src/images/proceeddark.svg"
         />
-      </div>
-    </div>
+      </main>
+    </>
   );
 };
 

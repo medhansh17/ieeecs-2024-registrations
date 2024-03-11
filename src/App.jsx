@@ -13,6 +13,7 @@ const App = () => {
         <Route path="welcome" element={<Welcome />} />
         <Route path="error" element={<Error />} />
         <Route path="domains" element={<Domains />} />
+        <Route path="error" element={<Error />} />
       </Routes>
     </>
   );

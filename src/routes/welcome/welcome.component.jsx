@@ -94,6 +94,7 @@ function Welcome() {
   function verifyMail(email, callback) {
     checkEmail(email, callback, (e) => {
       handleErrors(e);
+      useNavigate("/error");
     });
   }
 

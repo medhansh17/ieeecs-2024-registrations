@@ -19,6 +19,7 @@ import firebaseConfig from "../../../firebase.config";
 
 import validateEmail from "./validatemail";
 import Maintext from "../../components/maintext.component";
+import { checkEmail } from "../../api";
 
 function Welcome() {
   const [theme, setTheme] = useState("light");
@@ -77,8 +78,10 @@ function Welcome() {
           handleErrors("Please use your VIT email address");
         } else {
           //send to the next page
-          console.log("!O!O!O!O");
-          navigate("/domains");
+          verifyMail(user.email, () => {
+            localStorage.setItem("user", JSON.stringify(user));
+            navigate("/domains");
+          });
         }
       })
       .catch((error) => {
@@ -87,6 +90,12 @@ function Welcome() {
         const errorMessage = error.message;
         handleErrors(errorMessage);
       });
+  }
+
+  function verifyMail(email, callback) {
+    checkEmail(email, callback, (e) => {
+      handleErrors(e);
+    });
   }
 
   return (

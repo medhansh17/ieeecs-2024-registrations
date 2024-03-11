@@ -70,7 +70,6 @@ function Welcome() {
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;
-        // IdP data available using getAdditionalUserInfo(result)
         if (!validateEmail(user.email)) {
           signOut(auth);
           deleteUser(auth.currentUser);

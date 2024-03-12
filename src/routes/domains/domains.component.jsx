@@ -13,6 +13,12 @@ const Domains = () => {
   //function to get current theme, dark or light
   const [theme, setTheme] = useState("light");
   useEffect(() => {
+    const root = window.document.documentElement;
+    root.classList.remove(colorTheme);
+    root.classList.add(theme);
+
+    localStorage.setItem("theme", theme);
+
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const setThemeFromSystem = () => {
       if (mediaQuery.matches) {
@@ -24,13 +30,8 @@ const Domains = () => {
       }
     };
 
-    // Set theme from system preference on load
-    setThemeFromSystem();
-
-    // Update theme when system preference changes
     mediaQuery.addEventListener("change", setThemeFromSystem);
 
-    // Clean up event listener
     return () => {
       mediaQuery.removeEventListener("change", setThemeFromSystem);
     };

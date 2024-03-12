@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { motion } from "framer-motion";
 import Heading from "../../components/heading.component";
 import WelcomeBox from "../../components/welcome.component";
 import ButtonArea from "../../components/buttonarea.component";
@@ -99,7 +99,7 @@ function Welcome() {
   }
 
   return (
-    <>
+    <motion.div exit={{ opacity: 0 }}>
       <main className="min-h-screen h-full min-w-full bg-light-main pt-10 flex flex-col items-center dark:bg-black ">
         <Heading text="IEEE-CS" />
         <WelcomeBox theme={theme} text="Welcomes You" />
@@ -131,7 +131,7 @@ function Welcome() {
           darkimage="../src/images/google_dark.svg"
         />
       </main>
-    </>
+    </motion.div>
   );
 }
 

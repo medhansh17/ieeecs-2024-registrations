@@ -16,7 +16,7 @@ const blackBox = {
     height: 0,
     transition: {
       when: "afterChildren",
-      duration: 1.5,
+      duration: 1,
       ease: [0.87, 0, 0.13, 1],
     },
   },
@@ -40,7 +40,7 @@ const text = {
   animate: {
     y: 80,
     transition: {
-      duration: 1.5,
+      duration: 1,
       ease: [0.87, 0, 0.13, 1],
     },
   },
@@ -71,7 +71,7 @@ const InitialTransition = () => {
           </pattern>
           <text
             className="text-dynamic-h1 font-bold w-fit"
-            text-anchor="middle"
+            textAnchor="middle"
             x="50%"
             y="50%"
             style={{ fill: "url(#pattern)" }}
